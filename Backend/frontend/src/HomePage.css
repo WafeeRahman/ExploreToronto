@@ -1,0 +1,60 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.homepage {
+    font-family: 'Circular', 'Helvetica Neue', Arial, sans-serif;
+    color: #fff;
+    height: 100%;
+    position: relative;
+    overflow: hidden; /* Ensures no extra whitespace is shown */
+}
+
+.homepage-header {
+    display: none; /* We are using the NavBar component instead */
+}
+
+.homepage-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'CircularStd', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+.homepage-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.homepage-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.homepage-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+

@@ -1,0 +1,63 @@
+/* Ensure the homepage content covers the whole viewport */
+.homepage-content {
+    position: relative;
+    min-height: 100vh; /* This ensures the content covers the whole viewport */
+}
+
+/* Navbar styles */
+.navbar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: transparent; /* Transparent background */
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-link:hover {
+    color: #ffa500; /* Add a glow effect on hover */
+    border-bottom: 2px solid #ffa500;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+/* Ensure the image covers the area properly */
+.homepage-image {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Fix alignment issues with auth links */
+.auth-links {
+   margin-right: 2%;
+}
+
+/* Style for the text on the bottom left */
+.homepage-text {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: white;
+    font-family: 'Spotify Circular', sans-serif; /* Spotify-like font */
+    font-size: 2rem;
+    max-width: 60%;
+}
