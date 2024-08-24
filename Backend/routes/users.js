@@ -11,15 +11,13 @@ const wrapAsync = require('../utilities/wrapAsync')
 
 router.route('/register')
 
-    .get(users.renderUserForm)
-
     .post(wrapAsync(users.createUser));
 
 //Authenticate with passport using the local strategy, flash a message and redirect to login on failure
 router.route('/login')
     .get(users.renderLoginForm)
 
-    .post(storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
+    .post(storeReturnTo,
         users.loginUser);
 
 

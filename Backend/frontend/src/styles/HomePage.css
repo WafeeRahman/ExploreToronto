@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Circular', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .homepage {
@@ -10,7 +11,8 @@ html, body {
     color: #fff;
     height: 100%;
     position: relative;
-    overflow: hidden; /* Ensures no extra whitespace is shown */
+    overflow: hidden;
+   /* Match to the first color overlay */
 }
 
 .homepage-header {
@@ -39,6 +41,37 @@ html, body {
     padding: 0;
 }
 
+.homepage-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 3; /* Ensure this is above the overlays */
+}
+
+.homepage-button {
+    position: absolute;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    z-index: 3; /* Ensure this is above the overlays */
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vw;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+
+
+
 .homepage-image {
     width: 100%;
     height: 100vh;
@@ -49,12 +82,13 @@ html, body {
     z-index: -1;
 }
 
-.homepage-text {
+.color-overlay {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Initially hidden, fades in during animation */
 }
+
 
 

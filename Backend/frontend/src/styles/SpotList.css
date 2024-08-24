@@ -1,0 +1,76 @@
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Center the map and add padding */
+.map-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Adjust map size and add subtle styling */
+.map-container {
+    width: 80%; /* Make the map narrower */
+    height: 400px; /* Reduce the height */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+}
+
+/* Pop-up Animation */
+.mapboxgl-popup-content {
+    animation: fadeInScale 0.3s ease-in-out;
+}
+
+/* Define the fade-in and scale-up animation */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Optional: Customize the pop-up appearance further */
+.custom-popup .mapboxgl-popup-content {
+    background-color: #fff; /* Background color */
+    color: #333; /* Text color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px; /* Padding inside the pop-up */
+}
+
+/* Adjust the overall container padding */
+.spotlist-container {
+    padding: 20px;
+    background-color:#001F54 ;
+}
+
+/* Style for the spot cards */
+.spotlist-card {
+    max-width: 600px;
+    margin: 0 auto;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+    margin-top: 1%;
+}
+
+.spotlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.spotlist-card img {
+    object-fit: cover;
+}
+
+

@@ -58,11 +58,15 @@ app.engine('ejs', EJSmate)
 app.set('view engine', 'ejs');
 app.set('/views', path.join(__dirname, 'views'));
 
-app.use(cors());
+// Enable CORS for all origins (adjust as necessary)
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow only the React frontend
+    credentials: true, // Allow credentials such as cookies to be sent
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parses Pages
 app.use(methodOverride('_method')) //Overwrites HTML methods for PATCHING
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'frontend/src')))
 app.use(mongoSanitize());
 
 const ExpressError = require('./utilities/ExpressError')
@@ -178,10 +182,24 @@ app.use('/', userRoutes);
 app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGround CRUD
 app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
 
+
+app.get('/check-auth', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json({ isAuthenticated: true });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
+
+
 app.get('/', (req, res) => {
 
     res.render('home'); //Render Homepage at Root 
 
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/src', 'index.html'));
 });
 
 //Error Handler Middleware

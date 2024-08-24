@@ -12,53 +12,48 @@ module.exports.renderUserForm = (req, res) => {
 }
 
 module.exports.createUser = async (req, res) => {
-
     try {
-
-        //Take email, username, password from body
         const { email, username, password } = req.body;
-
-        //Create User Object with Username and Password
         const user = new User({ email, username });
-
-        //Use Passport register function to pass in and HASH password with salts, etc
         const registeredUser = await User.register(user, password);
 
-        //Log user in with passport
         req.login(registeredUser, err => {
+            if (err) {
+                return res.status(500).json({ success: false, message: 'Error logging in user' });
+            }
 
-            //General Error Handler
-            if (err) return next(err);
-
-            req.flash('success', 'Welcome to spotGROUNDS');
-            res.redirect('/spotgrounds');
-
-        })
-
-        console.log(registeredUser);
+            res.status(200).json({ success: true, message: 'Success! Logged In', user: registeredUser });
+        });
+    } catch (err) {
+        res.status(401).json({ success: false, message: err.message });
     }
-
-    catch (err) {
-        req.flash('error', err.message); //If Passport throws an error, flash its error message
-        res.redirect('/register')
-    }
-
 }
 
 module.exports.renderLoginForm = (req, res) => {
     res.render('users/login')
 }
 
-module.exports.loginUser = (req, res) => {
+module.exports.loginUser = (req, res, next) => {
     // Login User
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err); // Handle any errors
+        }
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid username or password' }); // Authentication failed
+        }
+        req.login(user, (err) => {
+            if (err) return next(err);
+            // Send response with user info
+            res.json({
+                success: true,
+                username: user.username, // Include username in response
+                message: 'Login successful',
+            });
+        });
+    })(req, res, next);
+};
 
-    req.flash('success', 'Welcome back!');
-
-    //After login, redirect to page that user was looking at, or /spotgrounds as a default
-    const redirectUrl = res.locals.returnTo || '/spotgrounds';
-    delete req.session.returnTo //Delete ReturnTo Afterwards and Redirect
-    res.redirect(redirectUrl);
-}
 
 module.exports.logoutUser = (req, res, next) => {
     //Log out with passport Function, redirect to error handler if theres an error

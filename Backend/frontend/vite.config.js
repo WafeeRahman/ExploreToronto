@@ -5,7 +5,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/spotgrounds': 'http://localhost:3000',
+      // Proxy requests starting with /api to http://localhost:5000
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     },
   },
 });
+
