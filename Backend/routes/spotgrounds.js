@@ -58,7 +58,7 @@ router.route('/:id') //Router Chain for get,put, and delete requests
 
     //Delete Route
 
-    .delete(validateLogin, validateAuthor, wrapAsync(spotgrounds.deleteSpot)); //Delete Runs delete method
+    .delete(validateLogin, validateAuthor,  wrapAsync(spotgrounds.deleteSpot)); //Delete Runs delete method
 
 
 
@@ -66,7 +66,7 @@ router.route('/:id') //Router Chain for get,put, and delete requests
 
 
 // Get requests to edit runs
-router.get('/:id/edit', validateLogin, validateAuthor, wrapAsync(spotgrounds.renderEditForm));
+router.get('/:id/edit', validateLogin, wrapAsync(spotgrounds.renderEditForm));
 
 
 

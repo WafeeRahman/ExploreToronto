@@ -66,7 +66,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="login-body">
 
             <FlashMessage
                 message={flashMessage.message}

@@ -5,6 +5,7 @@ const spotGround = require('./models/spot');
 const Review = require('./models/review');
 
 module.exports.validateLogin = (req, res, next) => {
+
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'Login Required.')
@@ -24,15 +25,20 @@ module.exports.storeReturnTo = (req, res, next) => {
 //Function Validates All put and post requests from async functions
 module.exports.validateSpot = (req, res, next) => {
 
+  
     const { error } = spotGroundSchema.validate(req.body);
 
     //Get Different Types of Errors using JOI
     if (error) {
+        console.log(error)
         const msg = error.details.map(el => el.message).join(',')
+        
         throw new ExpressError(msg, 400)
+        
     }
     else {
         next();
+        
     }
 
     console.log(res);
@@ -40,6 +46,7 @@ module.exports.validateSpot = (req, res, next) => {
 
 //Middleware for validating author
 module.exports.validateAuthor = async (req, res, next) => {
+
     const { id } = req.params
     const spot = await spotGround.findById(id)
     if (!spot.author.equals(req.user._id)) { //If the requester is not the same as the author, flash an error and return to show page
@@ -52,7 +59,7 @@ module.exports.validateAuthor = async (req, res, next) => {
 module.exports.validateReviewAuthor = async (req, res, next) => {
     const { id, revID } = req.params;
     const review = await Review.findById(revID)
-    if (!review.author.equals(req.user._id)) { //If the requester is not the same as the author, flash an error and return to show page
+    if ( review && !review.author.equals(req.user._id)) { //If the requester is not the same as the author, flash an error and return to show page
         req.flash('error', 'You do not have permission to do that!');
         return res.redirect(`/spotgrounds/${id}`)
     }

@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 const HomePage = () => {
     const location = useLocation();
+    const { state } = location;
     const [flashMessage, setFlashMessage] = useState({ message: '', type: '' });
 
     useEffect(() => {

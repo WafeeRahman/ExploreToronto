@@ -28,14 +28,20 @@ module.exports.createReview = async (req, res, next) => {
 
 }
 
-module.exports.deleteReview = async (req, res, next) => {
-    const { id, revID } = req.params; // Pull Spot ID and review ID w/ request parameters
+module.exports.deleteReview = async (req, res) => {
+    try {
+        const { id, revID } = req.params;
 
-    //Find spot by ID and review, and delete review, $Pull removes review with RevID from reviewArray
-    await spotGround.findByIdAndUpdate(id, { $pull: { reviews: revID } });
-    await Review.findByIdAndDelete(revID);
-    console.log(`Author: ${req.user._id}, Review: ${review}`)
-    req.flash('success', 'Review Deleted')
-    res.redirect(`/spotgrounds/${id}`);
+        // Remove the review from the spot and delete the review from the database
+        await spotGround.findByIdAndUpdate(id, { $pull: { reviews: revID } });
+        await Review.findByIdAndDelete(revID);
 
-}
+        console.log(`Author: ${req.user._id}, Deleted Review ID: ${revID}`);
+        
+        // Respond with success
+        res.status(200).json({ success: true, message: 'Review deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting review:', err);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+};

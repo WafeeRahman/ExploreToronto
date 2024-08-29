@@ -186,8 +186,10 @@ app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
 app.get('/check-auth', (req, res) => {
     if (req.isAuthenticated()) {
         res.json({ isAuthenticated: true });
+        console.log(req.isAuthenticated())
     } else {
         res.json({ isAuthenticated: false });
+        console.log(req.isAuthenticated())
     }
 });
 

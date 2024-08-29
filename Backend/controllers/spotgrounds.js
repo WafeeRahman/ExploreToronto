@@ -8,13 +8,13 @@ const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
     //Find all spotGrounds in DB to pass into frontend as JSON
-    
-    const spotGrounds = await spotGround.find({}); 
-    
+
+    const spotGrounds = await spotGround.find({});
+
     // Send Response
     res.status(200).json(spotGrounds);
 
-} 
+}
 
 module.exports.renderNewForm = (req, res) => {
 
@@ -38,8 +38,10 @@ module.exports.createSpot = async (req, res, next) => {
     spot.author = req.user._id;
     await spot.save(); //Save to DB
     console.log(spot);
-    req.flash('success', 'Post Successful!')
-    res.redirect(`/spotgrounds/${spot._id}`) //Redirects to details page
+    res.status(200).json(spot);
+
+    //req.flash('success', 'Post Successful!')
+    // res.redirect(`/spotgrounds/${spot._id}`) //Redirects to details page
 
 }
 
@@ -54,10 +56,11 @@ module.exports.showSpot = async (req, res) => {
 
     if (!spot) {
         req.flash('error', 'Spot Not Found.'); //If no spot is found, flash an error and return to spotgrounds route
-        return res.redirect('/spotgrounds');
+        return res.status(401).json({ success: false, message: 'Post Not Found.' }); // Authentication failed
     }
-    console.log(spot)
-    res.render('spotgrounds/show', { spot }); //Render show page with spotground details passed in for EJS Manipulation
+    //console.log(spot)
+    //res.render('spotgrounds/show', { spot }); //Render show page with spotground details passed in for EJS Manipulation
+    res.status(200).json(spot);
 
 }
 
@@ -71,51 +74,59 @@ module.exports.renderEditForm = async (req, res) => {
     //If spot doesnt exists, flash error and redirect back to /spotgrounds
     if (!spot) {
         req.flash('error', 'Spot Not Found.');
-        return res.redirect('/spotgrounds');
+        return res.status(401).json({ success: false, message: 'Post Not Found.' }); // Authentication failed
     }
 
     //Render Edit Page with Spot Details passed in
-    res.render('spotgrounds/edit', { spot });
+    //res.render('spotgrounds/edit', { spot });
 
 }
-
 
 module.exports.updateSpot = async (req, res, next) => {
+    try {
+        const id = req.params.id;
 
-    //Use request parameter id to find spot ID and updating it by spreading the object into the new spot
-    const id = req.params.id;
-    // Spread req body into the database object with matching id
-    const spot = await spotGround.findByIdAndUpdate(id, { ...req.body.spotgrounds }, { new: true });
-    //Take new/existing thumbnail and push it into the spot.thumbnail with spread operator
-    const thmbs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    spot.thumbnail.push(...thmbs)
-    await spot.save(); // Save Spot
+        // Update the spot with new data
+        const spot = await spotGround.findByIdAndUpdate(id, { ...req.body.spotgrounds }, { new: true });
 
-    //If we want to delete an image (given by put request & embedded javascript array)
-    if (req.body.deleteImages) {
-        for (let filename of req.body.deleteImages) {
-            //Use Cloudinary to destroy each filename
-            await cloudinary.uploader.destroy(filename);
+        // Handle new files if they exist
+        if (req.files && req.files.length > 0) {
+            const thmbs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+            spot.thumbnail.push(...thmbs);
         }
-        //Pull thumbnail out of thumbnail array
-        await spotGround.updateOne({ $pull: { thumbnail: { filename: { $in: req.body.deleteImages } } } })
 
+        await spot.save(); // Save the updated spot
+
+        // Handle deletion of images if provided
+        if (req.body.deleteImages && Array.isArray(req.body.deleteImages)) {
+            for (let filename of req.body.deleteImages) {
+                // Ensure that `filename` is valid and not empty
+                if (filename) {
+                    await cloudinary.uploader.destroy(filename);
+                }
+            }
+            // Remove deleted images from the thumbnail array
+            await spotGround.updateOne(
+                { _id: id },
+                { $pull: { thumbnail: { filename: { $in: req.body.deleteImages } } } }
+            );
+        }
+
+        console.log("Success");
+        res.status(200).json(spot);
+    } catch (error) {
+        console.error('Error updating spot:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    console.log("Success")
-    console.log(spot)
-
-    req.flash('success', 'Edit Successful!')
-    res.redirect(`/spotgrounds/${spot._id}`) //Redirects to details page
-
-}
+};
 
 module.exports.deleteSpot = async (req, res) => {
     // Take ID, Find Spot, Delete from DB, Redirect.
     const { id } = req.params;
     const deleted = await spotGround.findByIdAndDelete(id);
     console.log(`Deleted. ${deleted}`)
-    req.flash('success', 'Deleted Spot')
-    res.redirect(`/spotgrounds`)
+    res.status(200).json({ success: true, message: 'Delete Successful' }); // Authentication failed
+
 
 
 

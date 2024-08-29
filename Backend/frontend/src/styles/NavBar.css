@@ -16,7 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 99%;
 }
 
 .navbar-logo {
@@ -43,4 +43,28 @@
     color: #fff;
     border-bottom: 2px solid #fff;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 600px) {
+    .navbar {
+        justify-content: space-between; /* Normal layout for larger screens */
+    }
+
+    .navbar-container {
+        flex-direction: row; /* Normal row layout for larger screens */
+        width: 99%; /* Adjust width */
+    }
+
+    .navbar-links, .navbar-auth {
+        flex-direction: row; /* Normal row layout for links */
+        margin-right: 5vh; /* Restore margin for larger screens */
+    }
+
+    .navbar-logo {
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+
+    .nav-link {
+        margin-left: 1rem; /* Restore left margin */
+    }
 }
