@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-
+const api = import.meta.env.VITE_BACKEND_URL || '/api';
 export const AuthContext = createContext();
-
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState('');
@@ -15,7 +14,7 @@ export const AuthProvider = ({ children }) => {
                     setUsername(storedUsername);
                     setIsAuthenticated(true);
                 } else {
-                    const response = await axios.get(`/${api}/check-auth`, { withCredentials: true });
+                    const response = await axios.get(`${api}/check-auth`, { withCredentials: true });
                     if (response.data.isAuthenticated) {
                         setIsAuthenticated(true);
                         setUsername(response.data.username || '');
