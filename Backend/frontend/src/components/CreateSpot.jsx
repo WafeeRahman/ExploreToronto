@@ -54,7 +54,7 @@ const CreateSpot = () => {
                 formData.append('thumbnail', formValues.thumbnail[i]);
             }
 
-            const response = await axios.post('/api/spotgrounds', formData, {
+            const response = await axios.post(`/${api}/spotgrounds`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 

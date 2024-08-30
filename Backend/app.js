@@ -60,13 +60,13 @@ app.set('/views', path.join(__dirname, 'views'));
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow only the React frontend
-    credentials: true, // Allow credentials such as cookies to be sent
+    origin: ['http://localhost:5173', 'https://exploretoronto.onrender.com'], // Allow local dev and production frontend
+    credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parses Pages
 app.use(methodOverride('_method')) //Overwrites HTML methods for PATCHING
-app.use(express.static(path.join(__dirname, 'frontend/src')))
+app.use(express.static(path.join(__dirname, 'frontend/dist')))
 app.use(mongoSanitize());
 
 const ExpressError = require('./utilities/ExpressError')
@@ -201,8 +201,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/src', 'index.html'));
+    res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html')); // Update to match your build directory
 });
+
 
 //Error Handler Middleware
 

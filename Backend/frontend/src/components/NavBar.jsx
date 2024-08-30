@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/NavBar.css';
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
-
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
 const NavBar = () => {
     const { isAuthenticated, username, setIsAuthenticated, setUsername } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            await axios.get('/api/logout', { withCredentials: true });
+            await axios.get(`/${api}/logout`, { withCredentials: true });
             setIsAuthenticated(false);
             setUsername('');
             localStorage.removeItem('username');

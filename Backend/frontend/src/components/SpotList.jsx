@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import LoadingOverlay from './LoadingOverlay'; // Import the new component
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; // Default to proxy during development
 
 const SpotList = () => {
     const location = useLocation();
@@ -33,7 +34,7 @@ const SpotList = () => {
     useEffect(() => {
         const fetchSpots = async () => {
             try {
-                const response = await axios.get('/api/spotgrounds/');
+                const response = await axios.get(`/${api}/spotgrounds/`);
                 setSpots(response.data);
                 setIsLoaded(true);
             } catch (error) {

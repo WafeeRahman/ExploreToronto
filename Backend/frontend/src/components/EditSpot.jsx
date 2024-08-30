@@ -36,7 +36,7 @@ const EditSpot = () => {
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {
-                const response = await axios.get(`/api/spotgrounds/${id}`);
+                const response = await axios.get(`/${api}/spotgrounds/${id}`);
                 const post = response.data;
                 setFormValues({
                     title: post.title,
@@ -105,7 +105,7 @@ const EditSpot = () => {
                 console.log(`${pair[0]}: ${pair[1]}`);
             }
 
-            await axios.put(`/api/spotgrounds/${id}`, formData, {
+            await axios.put(`/${api}/spotgrounds/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 

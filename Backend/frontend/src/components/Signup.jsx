@@ -10,6 +10,8 @@ import FlashMessage from './FlashMessage';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
 const Signup = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -46,7 +48,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/register', formData);
+            const response = await axios.post(`/${api}/register`, formData);
             if (response.data.success) {
                 navigate('/login', { state: { message: 'Registration Successful', type: 'success' } });
             } else {

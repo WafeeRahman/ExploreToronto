@@ -6,8 +6,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `https://exploretoronto-1.onrender.com/`,
-        changeOrigin: true,
+        target: `${process.env.VITE_BACKEND_URL}`,
+
+gin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
