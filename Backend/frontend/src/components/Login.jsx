@@ -30,7 +30,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`/${api}/login/`, formData);
+            const response = await axios.post(`${api}/login/`, formData);
             console.log('Login successful:', response.data);
             if (response.data.success) {
                 setIsAuthenticated(true);
