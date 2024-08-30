@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 const mongoose = require('mongoose'); //Req Mongoose
 const path = require('path')
 const mongoSanitize = require('express-mongo-sanitize');
-const dbUrl = process.env.NODE_ENV !== "Production" ? "mongodb://127.0.0.1:27017/spot-grounds" : process.env.DB_URL;
+const dbUrl = process.env.DB_URL;
 //Connect to Mongoose and Acquire Courtground Schema
 //'mongodb://127.0.0.1:27017/spot-grounds'
 
