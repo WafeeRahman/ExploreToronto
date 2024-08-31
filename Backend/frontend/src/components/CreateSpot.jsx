@@ -33,11 +33,11 @@ const CreateSpot = () => {
                         username: response.data.username || ''
                     }));
                 } else {
-                    navigate('/login', { state: { message: 'You Must Be Logged In to Create A Post', type: 'error' } });
                     setFlashMessage({ open: true, message: 'You must be logged in to create a spot.', severity: 'error' });
+                    navigate('/login', { state: { message: 'You Must Be Logged In to Create A Post', type: 'error' } });
                 }
             } catch (error) {
-                console.error('Auth check error:', error);
+                setFlashMessage({ open: true, message: 'Authentication check failed. Please log in again.', severity: 'error' });
                 navigate('/login', { state: { message: 'Authentication check failed. Please log in again.', type: 'error' } });
             }
         };
@@ -58,30 +58,29 @@ const CreateSpot = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append('spotgrounds[title]', formValues.title);
-            formData.append('spotgrounds[location]', formValues.location);
-            formData.append('spotgrounds[description]', formValues.description);
-            formData.append('spotgrounds[price]', formValues.price);
-
+            formData.append('title', formValues.title);
+            formData.append('location', formValues.location);
+            formData.append('description', formValues.description);
+            formData.append('price', formValues.price);
+    
             for (let i = 0; i < formValues.thumbnail.length; i++) {
                 formData.append('thumbnail', formValues.thumbnail[i]);
             }
-
+    
             const response = await axios.post(`${api}/spotgrounds/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
-                withCredentials: true, // Ensure cookies are sent with the request
+                withCredentials: true,
             });
-            
-
+    
             const newSpotId = response.data._id;
             setFlashMessage({ open: true, message: 'Spot created successfully!', severity: 'success' });
             navigate(`/posts/${newSpotId}`);
         } catch (error) {
+            setFlashMessage({ open: true, message: 'Error in Creation Process. Please Try Again', severity: 'error' });
             console.error('Error creating spot:', error);
-            navigate('/', { state: { message: 'Error in Creation Process. Please Try Again', type: 'error' } });
-
         }
     };
+    
 
     return (
         <div className="page-content">

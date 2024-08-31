@@ -60,7 +60,7 @@ app.set('/views', path.join(__dirname, 'views'));
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://exploretoronto.onrender.com'], // Allow local dev and production frontend
+    origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
     credentials: true,
 }));
 app.use(express.json());
@@ -133,29 +133,29 @@ store.on('error', function (error) {
 })
 
 //Session Config and Cookies
+// Session Config and Cookies
 const sessionConfig = {
     store,
     name: 'Session',
     secret: 'thisisasecret',
     resave: false,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        //secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // How many milliseconds are in a week?
+        secure: process.env.NODE_ENV === 'Production', // Set to true in production
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7
-
     },
-    saveUninitialized: false
+};
 
-
-}
 
 app.use(session(sessionConfig)); //Initialize session with cookies
-app.use(flash());
-
 //Authentication using Passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+
 passport.use(new LocalStrategy(User.authenticate()));
 
 //Storing and Unstoring a User within Session
