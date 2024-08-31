@@ -43,8 +43,6 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 const userRoutes = require('./routes/users');
 const spotgroundRoutes = require('./routes/spotgrounds');
@@ -66,7 +64,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parses Pages
 app.use(methodOverride('_method')) //Overwrites HTML methods for PATCHING
-app.use(express.static(path.join(__dirname, 'frontend/dist')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(mongoSanitize());
 
 const ExpressError = require('./utilities/ExpressError')
@@ -156,19 +154,18 @@ app.use(passport.session());
 
 
 
-
-
-
-
 app.use(flash());
 
 
-passport.use(new LocalStrategy(User.authenticate()));
 
 //Storing and Unstoring a User within Session
 passport.serializeUser(User.serializeUser());
 
 passport.deserializeUser(User.deserializeUser());
+
+
+
+passport.use(new LocalStrategy(User.authenticate()));
 
 app.use((req, res, next) => {
     console.log(req.method, req.path);
@@ -205,10 +202,6 @@ app.get('/', (req, res) => {
 
     res.render('home'); //Render Homepage at Root 
 
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html')); // Update to match your build directory
 });
 
 
