@@ -142,7 +142,8 @@ const sessionConfig = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'Production', // Set to true in production
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        sameSite: 'None'
     },
 };
 
