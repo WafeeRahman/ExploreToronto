@@ -27,6 +27,7 @@ db.once("open", () => {
 
 
 
+
 //Initialize Express, EJS mate and RESTful Routes
 
 
@@ -45,6 +46,10 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+//Authentication using Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 const userRoutes = require('./routes/users');
 const spotgroundRoutes = require('./routes/spotgrounds');
@@ -153,9 +158,7 @@ const sessionConfig = {
 app.use(session(sessionConfig)); //Initialize session with cookies
 app.use(flash());
 
-//Authentication using Passport
-app.use(passport.initialize());
-app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 
 //Storing and Unstoring a User within Session
