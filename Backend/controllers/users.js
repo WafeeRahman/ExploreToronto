@@ -34,20 +34,24 @@ module.exports.renderLoginForm = (req, res) => {
 }
 
 module.exports.loginUser = (req, res, next) => {
-    // Login User
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return next(err); // Handle any errors
+            console.error('Authentication error:', err);
+            return next(err);
         }
         if (!user) {
-            return res.status(401).json({ success: false, message: 'Invalid username or password' }); // Authentication failed
+            console.log('Authentication failed:', info.message);
+            return res.status(401).json({ success: false, message: 'Invalid username or password' });
         }
         req.login(user, (err) => {
-            if (err) return next(err);
-            // Send response with user info
+            if (err) {
+                console.error('Login error:', err);
+                return next(err);
+            }
+            console.log('Login successful:', user);
             res.json({
                 success: true,
-                username: user.username, // Include username in response
+                username: user.username,
                 message: 'Login successful',
             });
         });

@@ -27,28 +27,23 @@ const Login = () => {
     };
 
     const { isAuthenticated, username, setIsAuthenticated, setUsername } = useContext(AuthContext);
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(`${api}/login/`, formData);
-            console.log('Login successful:', response.data);
+            console.log('Login response:', response.data);
             if (response.data.success) {
                 setIsAuthenticated(true);
                 setUsername(response.data.username);
                 localStorage.setItem('username', response.data.username);
                 navigate('/', { state: { message: 'Action was successful!', type: 'success' } });
-            }
-
-            else {
+            } else {
                 navigate('/login', { state: { message: 'Login Failed', type: 'error' } });
             }
-
-
         } catch (error) {
-            console.error('Login failed:', error);
+            console.error('Login error:', error);
             navigate('/login', { state: { message: 'Login Failed', type: 'error' } });
-            // Handle login error here
         }
     };
 
