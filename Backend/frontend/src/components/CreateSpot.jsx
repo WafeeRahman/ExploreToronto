@@ -12,7 +12,7 @@ import {
     Alert,
 } from '@mui/material';
 import '../styles/CreateEdit.css'; // Import the CSS file
-const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
+const api = import.meta.env.VITE_BACKEND_URL || '/api';
 const CreateSpot = () => {
     const navigate = useNavigate();
     const [formValues, setFormValues] = useState({
@@ -54,7 +54,7 @@ const CreateSpot = () => {
                 formData.append('thumbnail', formValues.thumbnail[i]);
             }
 
-            const response = await axios.post(`${api}/spotgrounds`, formData, {
+            const response = await axios.post(`${api}/spotgrounds/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
@@ -72,7 +72,7 @@ const CreateSpot = () => {
         <div className="page-content">
             <div className="full-page-container"></div>
 
-            <Container 
+            <Container
                 className="container pop-in"
                 maxWidth="sm"
                 sx={{ mt: 4 }}
