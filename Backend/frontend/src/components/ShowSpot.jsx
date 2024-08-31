@@ -37,7 +37,7 @@ const ShowSpot = () => {
     useEffect(() => {
         const fetchSpot = async () => {
             try {
-                const response = await axios.get(`${api}/spotgrounds/${id}`);
+                const response = await axios.get(`${api}/spotgrounds/${id}`, {withCredentials: true});
                 setSpot(response.data);
             } catch (error) {
                 console.error('Error fetching spot:', error);

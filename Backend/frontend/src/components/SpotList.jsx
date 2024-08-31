@@ -35,7 +35,7 @@ const SpotList = () => {
     useEffect(() => {
         const fetchSpots = async () => {
             try {
-                const response = await axios.get(`${api}/spotgrounds/`);
+                const response = await axios.get(`${api}/spotgrounds/`, {withCredentials: true});
                 setSpots(response.data);
                 setIsLoaded(true);
             } catch (error) {

@@ -36,7 +36,7 @@ const EditSpot = () => {
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {
-                const response = await axios.get(`${api}/spotgrounds/${id}`);
+                const response = await axios.get(`${api}/spotgrounds/${id}`, {withCredentials: true});
                 const post = response.data;
                 setFormValues({
                     title: post.title,
