@@ -23,6 +23,7 @@ module.exports.createUser = async (req, res) => {
             }
 
             res.status(200).json({ success: true, message: 'Success! Logged In', user: registeredUser });
+
         });
     } catch (err) {
         res.status(401).json({ success: false, message: err.message });
@@ -47,6 +48,7 @@ module.exports.loginUser = (req, res, next) => {
             });
         });
     })(req, res, next);
+    console.log(res.session)
 };
 
 

@@ -182,10 +182,6 @@ app.use((req, res, next) => {
 })
 
 
-app.use('/', userRoutes);
-app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGround CRUD
-app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
-
 
 app.get('/check-auth', (req, res) => {
     if (req.isAuthenticated()) {
@@ -196,6 +192,11 @@ app.get('/check-auth', (req, res) => {
         console.log(req.isAuthenticated())
     }
 });
+
+
+app.use('/', userRoutes);
+app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGround CRUD
+app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
 
 
 app.get('/', (req, res) => {
