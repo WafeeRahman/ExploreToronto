@@ -60,7 +60,7 @@ app.set('/views', path.join(__dirname, 'views'));
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
+    origin: ['http://localhost:5173', 'https://exploretoronto.onrender.com'], // Allow local dev and production frontend
     credentials: true,
 }));
 app.use(express.json());
@@ -124,7 +124,7 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'wafeessecret'
+        secret: 'thisshouldbeabettersecret!'
     }
 });
 
@@ -136,11 +136,11 @@ store.on('error', function (error) {
 const sessionConfig = {
     store,
     name: 'Session',
-    secret: 'wafeessecret',
+    secret: 'thisisasecret',
     resave: false,
     cookie: {
         httpOnly: true,
-        //secure: true,
+        secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // How many milliseconds are in a week?
         maxAge: 1000 * 60 * 60 * 24 * 7
 
@@ -151,11 +151,11 @@ const sessionConfig = {
 }
 
 app.use(session(sessionConfig)); //Initialize session with cookies
+app.use(flash());
 
 //Authentication using Passport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 passport.use(new LocalStrategy(User.authenticate()));
 
 //Storing and Unstoring a User within Session
