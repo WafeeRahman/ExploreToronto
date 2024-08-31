@@ -28,7 +28,7 @@ module.exports.validateSpot = (req, res, next) => {
 
   
     const { error } = spotGroundSchema.validate(req.body);
-
+    console.log(req.body);
     //Get Different Types of Errors using JOI
     if (error) {
         console.log(error)
