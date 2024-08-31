@@ -5,7 +5,7 @@ const spotGround = require('./models/spot');
 const Review = require('./models/review');
 
 module.exports.validateLogin = (req, res, next) => {
-
+    console.log(req)
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'Login Required.')
@@ -28,12 +28,10 @@ module.exports.validateSpot = (req, res, next) => {
 
   
     const { error } = spotGroundSchema.validate(req.body);
-    console.log(req.body);
     //Get Different Types of Errors using JOI
     if (error) {
         console.log(error)
         const msg = error.details.map(el => el.message).join(',')
-        console.log('foo')
         throw new ExpressError(msg, 400)
         
     }
