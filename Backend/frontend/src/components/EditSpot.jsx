@@ -17,7 +17,7 @@ import {
     FormControlLabel,
 } from '@mui/material';
 import '../styles/CreateEdit.css'
-
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
 const EditSpot = () => {
     const { id } = useParams();
     const navigate = useNavigate();

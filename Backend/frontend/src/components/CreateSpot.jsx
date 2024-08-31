@@ -12,7 +12,7 @@ import {
     Alert,
 } from '@mui/material';
 import '../styles/CreateEdit.css'; // Import the CSS file
-
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
 const CreateSpot = () => {
     const navigate = useNavigate();
     const [formValues, setFormValues] = useState({
