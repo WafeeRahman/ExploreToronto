@@ -60,7 +60,7 @@ app.set('/views', path.join(__dirname, 'views'));
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://exploretoronto.onrender.com'], // Allow local dev and production frontend
+    origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
     credentials: true,
 }));
 app.use(express.json());
@@ -151,11 +151,11 @@ const sessionConfig = {
 }
 
 app.use(session(sessionConfig)); //Initialize session with cookies
-app.use(flash());
 
 //Authentication using Passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 passport.use(new LocalStrategy(User.authenticate()));
 
 //Storing and Unstoring a User within Session

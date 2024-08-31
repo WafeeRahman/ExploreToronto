@@ -5,15 +5,17 @@ const spotGround = require('./models/spot');
 const Review = require('./models/review');
 
 module.exports.validateLogin = (req, res, next) => {
-    console.log(req)
+    console.log('Session:', req.session);
+    console.log('Authenticated:', req.isAuthenticated());
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
-        req.flash('error', 'Login Required.')
-        console.log('foo')
-        return res.redirect('/login')
+        req.flash('error', 'Login Required.');
+        console.log('User not authenticated. Redirecting to login.');
+        return res.redirect('/login');
     }
     next();
 }
+
 // Stores returnTo url for logging in and returning to a specific url to be visited
 module.exports.storeReturnTo = (req, res, next) => {
     if (req.session.returnTo) {

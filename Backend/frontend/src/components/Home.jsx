@@ -5,8 +5,10 @@ import '../styles/HomePage.css';
 import { Button } from '@mui/material';
 import FlashMessage from './FlashMessage';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 const HomePage = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
     const [flashMessage, setFlashMessage] = useState({ message: '', type: '' });
