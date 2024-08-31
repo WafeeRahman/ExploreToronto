@@ -6,7 +6,9 @@ const Review = require('./models/review');
 
 module.exports.validateLogin = (req, res, next) => {
     console.log('Session:', req.session);
-    console.log('Authenticated:', req.isAuthenticated());
+    console.log('Is Authenticated:', req.isAuthenticated());
+    console.log('User:', req.user);
+
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'Login Required.');
@@ -14,7 +16,7 @@ module.exports.validateLogin = (req, res, next) => {
         return res.redirect('/login');
     }
     next();
-}
+};
 
 // Stores returnTo url for logging in and returning to a specific url to be visited
 module.exports.storeReturnTo = (req, res, next) => {

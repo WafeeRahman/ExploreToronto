@@ -23,13 +23,26 @@ const CreateSpot = () => {
         thumbnail: [],
     });
     const [flashMessage, setFlashMessage] = useState({ open: false, message: '', severity: '' });
-
     useEffect(() => {
-        const username = localStorage.getItem('username');
-        if (!username) {
-            navigate('/login', { state: { message: 'You Must Be Logged In to Create A Post', type: 'error' } });
-            setFlashMessage({ open: true, message: 'You must be logged in to create a spot.', severity: 'error' });
-        }
+        const checkAuth = async () => {
+            try {
+                const response = await axios.get(`${api}/check-auth`, { withCredentials: true });
+                if (response.data.isAuthenticated) {
+                    setFormValues((prevValues) => ({
+                        ...prevValues,
+                        username: response.data.username || ''
+                    }));
+                } else {
+                    navigate('/login', { state: { message: 'You Must Be Logged In to Create A Post', type: 'error' } });
+                    setFlashMessage({ open: true, message: 'You must be logged in to create a spot.', severity: 'error' });
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                navigate('/login', { state: { message: 'Authentication check failed. Please log in again.', type: 'error' } });
+            }
+        };
+    
+        checkAuth();
     }, [navigate]);
 
     const handleInputChange = (e) => {
@@ -56,7 +69,9 @@ const CreateSpot = () => {
 
             const response = await axios.post(`${api}/spotgrounds/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
+                withCredentials: true, // Ensure cookies are sent with the request
             });
+            
 
             const newSpotId = response.data._id;
             setFlashMessage({ open: true, message: 'Spot created successfully!', severity: 'success' });
