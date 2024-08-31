@@ -9,6 +9,7 @@ module.exports.validateLogin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
         req.flash('error', 'Login Required.')
+        console.log('foo')
         return res.redirect('/login')
     }
     next();
@@ -32,7 +33,7 @@ module.exports.validateSpot = (req, res, next) => {
     if (error) {
         console.log(error)
         const msg = error.details.map(el => el.message).join(',')
-        
+        console.log('foo')
         throw new ExpressError(msg, 400)
         
     }
