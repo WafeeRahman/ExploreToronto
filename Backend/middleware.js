@@ -5,19 +5,14 @@ const spotGround = require('./models/spot');
 const Review = require('./models/review');
 
 module.exports.validateLogin = (req, res, next) => {
-    console.log('Session:', req.session);
-    console.log('Is Authenticated:', req.isAuthenticated());
-    console.log('User:', req.user);
 
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
-        req.flash('error', 'Login Required.');
-        console.log('User not authenticated. Redirecting to login.');
-        return res.redirect('/login');
+        req.flash('error', 'Login Required.')
+        return res.redirect('/login')
     }
     next();
-};
-
+}
 // Stores returnTo url for logging in and returning to a specific url to be visited
 module.exports.storeReturnTo = (req, res, next) => {
     if (req.session.returnTo) {
@@ -32,10 +27,12 @@ module.exports.validateSpot = (req, res, next) => {
 
   
     const { error } = spotGroundSchema.validate(req.body);
+
     //Get Different Types of Errors using JOI
     if (error) {
         console.log(error)
         const msg = error.details.map(el => el.message).join(',')
+        
         throw new ExpressError(msg, 400)
         
     }
