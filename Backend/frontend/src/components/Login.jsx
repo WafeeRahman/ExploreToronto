@@ -9,6 +9,7 @@ import FlashMessage from './FlashMessage';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import { AuthContext } from './AuthContext';
+const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
 const Login = () => {
     const [formData, setFormData] = useState({
         username: '',
