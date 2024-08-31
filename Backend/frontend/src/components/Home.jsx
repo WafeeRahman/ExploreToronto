@@ -76,9 +76,9 @@ const HomePage = () => {
                     <Button
                         variant="contained"
                         color="primary"
-                        href="/posts"
                         size="large"
                         style={{ backgroundColor: '#F8F7FF', color: '#000' }}
+                        onClick={() => navigate('/posts')}
                     >
                         Explore Posts
                     </Button>

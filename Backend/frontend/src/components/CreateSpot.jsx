@@ -166,7 +166,7 @@ const CreateSpot = () => {
                                 <Button
                                     variant="contained"
                                     className="button button-secondary"
-                                    onClick={() => navigate('/spotgrounds')}
+                                    onClick={() => navigate('/posts')}
                                 >
                                     Cancel
                                 </Button>
