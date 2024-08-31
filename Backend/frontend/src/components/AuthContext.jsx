@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
                     setUsername(storedUsername);
                     setIsAuthenticated(true);
                 } else {
-                    const response = await axios.get(`${api}/check-auth`, { withCredentials: true });
+                    const response = await axios.get(`${api}/check-auth`);
                     if (response.data.isAuthenticated) {
                         setIsAuthenticated(true);
                         setUsername(response.data.username || '');

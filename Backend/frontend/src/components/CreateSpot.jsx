@@ -26,7 +26,7 @@ const CreateSpot = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get(`${api}/check-auth`, { withCredentials: true });
+                const response = await axios.get(`${api}/check-auth`);
                 if (response.data.isAuthenticated) {
                     setFormValues((prevValues) => ({
                         ...prevValues,

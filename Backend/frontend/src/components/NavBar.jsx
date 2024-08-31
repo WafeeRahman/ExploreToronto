@@ -10,7 +10,7 @@ const NavBar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get(`${api}/logout`, { withCredentials: true });
+            await axios.get(`${api}/logout`);
             setIsAuthenticated(false);
             setUsername('');
             localStorage.removeItem('username');
