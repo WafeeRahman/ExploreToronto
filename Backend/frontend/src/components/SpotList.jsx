@@ -236,7 +236,7 @@ const SpotList = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    href={`/posts/${spot._id}`}
+                                    onClick={() => navigate(`/posts/${spot._id}`)}
                                     style={{marginTop:'10%', backgroundColor:'#000'}}
                                 >
                                     View
