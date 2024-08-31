@@ -145,7 +145,7 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
 
     },
-    saveUninitialized: true
+    saveUninitialized: false
 
 
 }
