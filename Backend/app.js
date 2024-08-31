@@ -119,6 +119,9 @@ app.use(
     })
 );
 
+
+//Session Config and Cookies
+// Session Config and Cookies
 const MongoStore = require('connect-mongo');
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -131,9 +134,6 @@ const store = MongoStore.create({
 store.on('error', function (error) {
     console.log('MongoStore Error:', error)
 })
-
-//Session Config and Cookies
-// Session Config and Cookies
 const sessionConfig = {
     store,
     name: 'Session',
@@ -148,11 +148,18 @@ const sessionConfig = {
     },
 };
 
-
 app.use(session(sessionConfig)); //Initialize session with cookies
 //Authentication using Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+
+
+
+
+
+
 app.use(flash());
 
 
