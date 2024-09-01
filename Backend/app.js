@@ -140,10 +140,10 @@ const sessionConfig = {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'Production', // Set to true in production
+        secure: process.env.NODE_ENV === 'production', // true in production (HTTPS)
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // 'None' for cross-site cookies
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: 'None'
+        maxAge: 1000 * 60 * 60 * 24 * 7
     },
 };
 
@@ -179,6 +179,8 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user; //Pass in user object from passport as current user (for navbar manipulation and etc.. )
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    console.log('Session:', req.session);
+    console.log('User:', req.user);
     next();
 })
 
