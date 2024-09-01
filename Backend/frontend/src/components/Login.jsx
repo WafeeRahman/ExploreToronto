@@ -31,7 +31,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${api}/login/`, formData, { withCredentials: true });
+            const response = await axios.post(`${api}login/`, formData, { withCredentials: true });
             console.log('Login response:', response.data);
             if (response.data.success) {
                 setIsAuthenticated(true);
