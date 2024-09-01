@@ -160,9 +160,15 @@ app.use(flash());
 
 
 //Storing and Unstoring a User within Session
-passport.serializeUser(User.serializeUser());
+passport.serializeUser((user, done) => {
+    done(null, user.id); // or user._id if using MongoDB
+});
 
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
 
 
 

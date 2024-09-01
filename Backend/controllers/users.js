@@ -41,6 +41,10 @@ module.exports.loginUser = (req, res, next) => {
 
         req.login(user, (err) => {
             if (err) return next(err);
+            
+            // Log the session after the user has been logged in
+            console.log('Session after login:', req.session);
+
             res.json({
                 success: true,
                 username: user.username,
@@ -48,8 +52,8 @@ module.exports.loginUser = (req, res, next) => {
             });
         });
     })(req, res, next);
-    console.log(res.session)
 };
+
 
 
 module.exports.logoutUser = (req, res, next) => {
