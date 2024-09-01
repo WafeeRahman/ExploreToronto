@@ -52,10 +52,6 @@ const helmet = require('helmet')
 
 
 
-app.engine('ejs', EJSmate)
-app.set('view engine', 'ejs');
-app.set('/views', path.join(__dirname, 'views'));
-
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
     origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
@@ -64,7 +60,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parses Pages
 app.use(methodOverride('_method')) //Overwrites HTML methods for PATCHING
-app.use(express.static(path.join(__dirname, 'public')))
 app.use(mongoSanitize());
 
 const ExpressError = require('./utilities/ExpressError')
@@ -132,10 +127,11 @@ const store = MongoStore.create({
 store.on('error', function (error) {
     console.log('MongoStore Error:', error)
 })
+
 const sessionConfig = {
     store,
     name: 'Session',
-    secret: 'thisisasecret',
+    secret: process.env.SESSION_SECRET || 'defaultsecret', // Use environment variable
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -212,6 +208,15 @@ app.get('/', (req, res) => {
 
     res.render('home'); //Render Homepage at Root 
 
+});
+
+
+// Serve static files from the "frontend/dist" directory
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+// Catch-all handler for any request that doesn't match an API route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
 
 
