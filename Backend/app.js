@@ -95,6 +95,7 @@ const connectSrcUrls = [
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
     "http://localhost:3000",
+    "https://exploretoronto-1.onrender.com/"
 ];
 const fontSrcUrls = [];
 
