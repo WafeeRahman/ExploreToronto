@@ -77,10 +77,10 @@ const ShowSpot = () => {
                     body: reviewText,
                 },
             };
-            await axios.post(`${api}/spotgrounds/${id}/reviews`, reviewData);
+            await axios.post(`${api}/spotgrounds/${id}/reviews`, reviewData,  {withCredentials: true});
             setReviewRating(0);
             setReviewText('');
-            const updatedSpot = await axios.get(`${api}/spotgrounds/${id}`);
+            const updatedSpot = await axios.get(`${api}/spotgrounds/${id}`,  {withCredentials: true});
             setSpot(updatedSpot.data);
         } catch (error) {
             console.error('Error submitting review:', error.response || error.message);
@@ -100,7 +100,7 @@ const ShowSpot = () => {
 
             if (response.status === 200) {
                 console.log('Review deleted successfully:', response.data);
-                const updatedSpot = await axios.get(`/${api}/spotgrounds/${id}`);
+                const updatedSpot = await axios.get(`/${api}/spotgrounds/${id}`,  {withCredentials: true});
                 setSpot(updatedSpot.data);
                 
             } else {
@@ -120,7 +120,7 @@ const ShowSpot = () => {
         }
 
         try {
-            await axios.delete(`${api}/spotgrounds/${id}`);
+            await axios.delete(`${api}/spotgrounds/${id}`,  {withCredentials: true});
             navigate('/posts', { state: { message: 'Delete Successful', type: 'success' } });
         } catch (error) {
             console.error('Error deleting spot:', error.response || error.message);

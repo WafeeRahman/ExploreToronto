@@ -106,7 +106,7 @@ const EditSpot = () => {
             }
 
             await axios.put(`${api}/spotgrounds/${id}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
+                headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true  
             });
 
             setFlashMessage({ open: true, message: 'Spot updated successfully!', severity: 'success' });
