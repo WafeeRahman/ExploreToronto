@@ -52,6 +52,12 @@ const helmet = require('helmet')
 
 
 
+app.engine('ejs', EJSmate)
+app.set('view engine', 'ejs');
+app.set('/views', path.join(__dirname, 'views'));
+
+
+
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
     origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
