@@ -94,6 +94,7 @@ const connectSrcUrls = [
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
+    "http://localhost:3000",
 ];
 const fontSrcUrls = [];
 
@@ -209,11 +210,6 @@ app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGrou
 app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
 
 
-app.get('/', (req, res) => {
-
-    res.render('home'); //Render Homepage at Root 
-
-});
 
 
 // Serve static files from the "frontend/dist" directory
