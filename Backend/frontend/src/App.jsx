@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={process.env.VITE_BACKEND_URL || '/'}>
         <FlashMessage message={flashMessage.message} type={flashMessage.type} onClose={handleCloseFlashMessage} />
         <NavBar />
         <Routes>

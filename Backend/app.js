@@ -42,7 +42,7 @@ const helmet = require('helmet');
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: ['https://localhost:3000/'], // Allow local dev and production frontend
+    origin: ['https://localhost:3000/', 'https://exploretoronto-1.onrender.com/'], // Allow local dev and production frontend
     credentials: true,
 }));
 app.use(express.json());
