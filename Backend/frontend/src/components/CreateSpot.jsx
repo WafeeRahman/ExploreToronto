@@ -26,7 +26,7 @@ const CreateSpot = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get(`${api}/check-auth`, {withCredentials: true});
+                const response = await axios.get(`${api}/check-auth`, { withCredentials: true });
                 if (response.data.isAuthenticated) {
                     setFormValues((prevValues) => ({
                         ...prevValues,
@@ -41,7 +41,7 @@ const CreateSpot = () => {
                 navigate('/login', { state: { message: 'Authentication check failed. Please log in again.', type: 'error' } });
             }
         };
-    
+
         checkAuth();
     }, [navigate]);
 
@@ -58,16 +58,16 @@ const CreateSpot = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append('title', formValues.title);
-            formData.append('location', formValues.location);
-            formData.append('description', formValues.description);
-            formData.append('price', formValues.price);
+            formData.append('spotgrounds[title]', formValues.title);
+            formData.append('spotgrounds[location]', formValues.location);
+            formData.append('spotgrounds[description]', formValues.description);
+            formData.append('spotgrounds[price]', formValues.price);
     
             for (let i = 0; i < formValues.thumbnail.length; i++) {
                 formData.append('thumbnail', formValues.thumbnail[i]);
             }
     
-            const response = await axios.post(`${api}/spotgrounds/`, formData, {
+            const response = await axios.post(`${api}/spotgrounds`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
                 withCredentials: true,
             });
@@ -76,11 +76,10 @@ const CreateSpot = () => {
             setFlashMessage({ open: true, message: 'Spot created successfully!', severity: 'success' });
             navigate(`/posts/${newSpotId}`);
         } catch (error) {
-            setFlashMessage({ open: true, message: 'Error in Creation Process. Please Try Again', severity: 'error' });
             console.error('Error creating spot:', error);
+            navigate('/', { state: { message: 'Error in Creation Process. Please Try Again', type: 'error' } });
         }
     };
-    
 
     return (
         <div className="page-content">
@@ -180,7 +179,7 @@ const CreateSpot = () => {
                                 <Button
                                     variant="contained"
                                     className="button button-secondary"
-                                    onClick={() => navigate('/posts')}
+                                    onClick={() => navigate('/spotgrounds')}
                                 >
                                     Cancel
                                 </Button>

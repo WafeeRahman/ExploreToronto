@@ -22,8 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/ShowSpot.css';
-
-const api = import.meta.env.VITE_BACKEND_URL || '/api'; 
+const api = import.meta.env.VITE_BACKEND_URL || '/api';
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const ShowSpot = () => {
@@ -37,7 +36,7 @@ const ShowSpot = () => {
     useEffect(() => {
         const fetchSpot = async () => {
             try {
-                const response = await axios.get(`${api}/spotgrounds/${id}`, {withCredentials: true});
+                const response = await axios.get(`${api}/spotgrounds/${id}`, { withCredentials: true });
                 setSpot(response.data);
             } catch (error) {
                 console.error('Error fetching spot:', error);
@@ -77,14 +76,15 @@ const ShowSpot = () => {
                     body: reviewText,
                 },
             };
-            await axios.post(`${api}/spotgrounds/${id}/reviews`, reviewData,  {withCredentials: true});
+            const response = await axios.post(`${api}/spotgrounds/${id}/reviews`, reviewData, { withCredentials: true });
+            const updatedSpot = await axios.get(`${api}/spotgrounds/${id}`);
+            setSpot(updatedSpot.data);
+
+            // Reset review form
             setReviewRating(0);
             setReviewText('');
-            const updatedSpot = await axios.get(`${api}/spotgrounds/${id}`,  {withCredentials: true});
-            setSpot(updatedSpot.data);
         } catch (error) {
             console.error('Error submitting review:', error.response || error.message);
-            // Optionally, show user-friendly error message
             alert('Failed to submit review. Please try again.');
         }
     };
@@ -92,17 +92,17 @@ const ShowSpot = () => {
 
 
     const handleReviewDelete = async (reviewId) => {
-       
+
         try {
 
             // Send delete request
-            const response = await axios.delete(`${api}/spotgrounds/${id}/reviews/${reviewId}`);
+            const response = await axios.delete(`${api}/spotgrounds/${id}/reviews/${reviewId}`, { withCredentials: true });
 
             if (response.status === 200) {
                 console.log('Review deleted successfully:', response.data);
-                const updatedSpot = await axios.get(`/${api}/spotgrounds/${id}`,  {withCredentials: true});
+                const updatedSpot = await axios.get(`${api}/spotgrounds/${id}`);
                 setSpot(updatedSpot.data);
-                
+
             } else {
                 console.error('Failed to delete review:', response.data.message);
             }
@@ -120,7 +120,7 @@ const ShowSpot = () => {
         }
 
         try {
-            await axios.delete(`${api}/spotgrounds/${id}`,  {withCredentials: true});
+            await axios.delete(`${api}/spotgrounds/${id}`, { withCredentials: true });
             navigate('/posts', { state: { message: 'Delete Successful', type: 'success' } });
         } catch (error) {
             console.error('Error deleting spot:', error.response || error.message);
@@ -189,7 +189,7 @@ const ShowSpot = () => {
                             <Box mt={2}>
                                 <Button
                                     variant="contained"
-                                    style={{backgroundColor:'#000'}}
+                                    style={{ backgroundColor: '#000' }}
                                     startIcon={<EditIcon />}
                                     onClick={() => navigate(`/posts/${id}/edit`)}
                                 >
@@ -197,7 +197,7 @@ const ShowSpot = () => {
                                 </Button>
                                 <Button
                                     variant="contained"
-                                    style={{backgroundColor:'#000'}}
+                                    style={{ backgroundColor: '#000' }}
                                     startIcon={<DeleteIcon />}
                                     sx={{ ml: 2 }}
                                     onClick={handleDeleteSpot}
@@ -242,7 +242,7 @@ const ShowSpot = () => {
                                     />
                                     <Button
                                         variant="contained"
-                                        style={{backgroundColor:'#000'}}
+                                        style={{ backgroundColor: '#000' }}
                                         sx={{ mt: 1 }}
                                         onClick={handleReviewSubmit}
                                     >

@@ -21,10 +21,8 @@ module.exports.createReview = async (req, res, next) => {
 
     console.log(`Author: ${req.user._id}, Review: ${review}`)
     req.flash('success', 'Review Added!') //Flash after saves occur and redirect to spot page w/ id
-    res.redirect(`/spotgrounds/${spot._id}`)
-
     // If this route somehow fails, next middleware will take it to error handler
-
+    res.status(200).json({ data: spot });
 
 }
 
@@ -37,7 +35,7 @@ module.exports.deleteReview = async (req, res) => {
         await Review.findByIdAndDelete(revID);
 
         console.log(`Author: ${req.user._id}, Deleted Review ID: ${revID}`);
-        
+
         // Respond with success
         res.status(200).json({ success: true, message: 'Review deleted successfully' });
     } catch (err) {

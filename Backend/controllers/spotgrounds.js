@@ -10,6 +10,7 @@ module.exports.index = async (req, res) => {
     //Find all spotGrounds in DB to pass into frontend as JSON
 
     const spotGrounds = await spotGround.find({});
+    console.log('SpotGrounds:', spotGrounds); // Log the data
 
     // Send Response
     res.status(200).json(spotGrounds);

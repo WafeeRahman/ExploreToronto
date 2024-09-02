@@ -15,6 +15,7 @@ router.route('/register')
 
 //Authenticate with passport using the local strategy, flash a message and redirect to login on failure
 router.route('/login')
+    .get(users.renderLoginForm)
 
     .post(storeReturnTo,
         users.loginUser);

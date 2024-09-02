@@ -1,44 +1,29 @@
-
-
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-
 const mongoose = require('mongoose'); //Req Mongoose
-const path = require('path')
+const path = require('path');
 const mongoSanitize = require('express-mongo-sanitize');
-const dbUrl = process.env.DB_URL;
-//Connect to Mongoose and Acquire Courtground Schema
-//'mongodb://127.0.0.1:27017/spot-grounds'
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/spot-grounds';
 
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+// Connect to Mongoose and Acquire Courtground Schema
+mongoose.connect(dbUrl);
 
-
-const db = mongoose.connection; //shorthand for db
+const db = mongoose.connection; // shorthand for db
 
 db.on('error', console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("MongoDB Connected");
-})
+});
 
-
-
-//Initialize Express, EJS mate and RESTful Routes
-
-
+// Initialize Express, EJS mate and RESTful Routes
 const cors = require('cors');
-
-const EJSmate = require('ejs-mate'); //EJSmate -- Engine allows support for the boilerplate layout, along with partials
-
 const express = require('express');
-const session = require('express-session')
-
-const flash = require('connect-flash') // Allows Flash Messages
+const session = require('express-session');
+const flash = require('connect-flash'); // Allows Flash Messages
 const app = express();
+app.set('view engine', 'ejs');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -48,19 +33,16 @@ const userRoutes = require('./routes/users');
 const spotgroundRoutes = require('./routes/spotgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-const helmet = require('helmet')
+const helmet = require('helmet');
 
 
 
-app.engine('ejs', EJSmate)
-app.set('view engine', 'ejs');
-app.set('/views', path.join(__dirname, 'views'));
 
 
 
 // Enable CORS for all origins (adjust as necessary)
 app.use(cors({
-    origin: ['https://exploretoronto.onrender.com'], // Allow local dev and production frontend
+    origin: ['https://localhost:3000/'], // Allow local dev and production frontend
     credentials: true,
 }));
 app.use(express.json());
@@ -144,7 +126,7 @@ const sessionConfig = {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true in production (HTTPS)
+       //secure: process.env.NODE_ENV === 'production', // true in production (HTTPS)
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
         maxAge: 1000 * 60 * 60 * 24 * 7
     },
@@ -163,15 +145,9 @@ app.use(flash());
 
 
 //Storing and Unstoring a User within Session
-passport.serializeUser((user, done) => {
-    done(null, user.id); // or user._id if using MongoDB
-});
+passport.serializeUser(User.serializeUser());
 
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
-    });
-});
+passport.deserializeUser(User.deserializeUser());
 
 
 
@@ -205,21 +181,26 @@ app.get('/check-auth', (req, res) => {
     }
 });
 
-
-app.use('/', userRoutes);
-app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGround CRUD
-app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
-
-
-
-
-// Serve static files from the "frontend/dist" directory
+// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// Catch-all handler for any request that doesn't match an API route
+
+
+app.use('/spotgrounds/', spotgroundRoutes); //Pass In Express Router to SpotGround CRUD
+
+app.use('/spotgrounds/:id/reviews', reviewRoutes); //Pass In Review Router
+
+// Fallback to index.html for React Router
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
+
+app.use('/', userRoutes);
+
+
+
+
+
 
 
 //Error Handler Middleware
@@ -228,11 +209,12 @@ app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found -- Invalid Route', 404))
 });
 
+// Error handling middleware
 app.use((err, req, res, next) => {
-    const { status = 500 } = err;
-    if (!err.message) err.message = 'Something Went Wrong!'
-    res.status(status).render('error', { err });
-})
+    const statusCode = err.statusCode || 500; // Ensure statusCode is defined
+    const message = err.message || 'Oh No, Something Went Wrong!';
+    res.status(statusCode).json({ error: message });
+});
 
 app.listen(3000, () => {
     console.log("Listening on port 3000");
