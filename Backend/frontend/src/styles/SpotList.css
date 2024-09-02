@@ -99,11 +99,11 @@
     max-width: 90%; /* Base value for smaller screens */
     transition: transform 0.5s ease, box-shadow 0.3s ease;
     margin: 20px auto; /* Center horizontally and add margin */
-    margin-bottom: 2rem;
+    margin-bottom: 60px;
     padding: 15px; /* Add some padding for better spacing */
     box-sizing: border-box; /* Ensure padding doesn't affect the overall width */
     overflow: hidden; /* Prevent content from overflowing */
-    border-bottom: 2rem;
+    border-bottom: 100px;
 }
 
 /* Ensure thumbnails are contained within the card */
