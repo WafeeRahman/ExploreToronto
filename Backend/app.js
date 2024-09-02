@@ -81,7 +81,7 @@ const connectSrcUrls = [
     "http://localhost:3000",
     "https://exploretoronto-1.onrender.com/"
 ];
-const fontSrcUrls = [];
+const fontSrcUrls = ["https://fonts.gstatic.com"];
 
 app.use(
     helmet.contentSecurityPolicy({
