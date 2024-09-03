@@ -1,6 +1,6 @@
 # Explore Toronto
 
-Explore Toronto is a full-stack web application designed to allow users to post and review spots around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI.
+Explore Toronto is a full-stack web application designed to allow users to post and review spots around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI. This site can be visited at https://exploretoronto-1.onrender.com/
 
 ## Features
 
