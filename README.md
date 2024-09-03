@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>?Explore Toronto Repository</title>
-</head>
-<body>
+
+
+
     <h1>Explore Toronto</h1>
 
     <p><strong>Explore Toronto</strong> is a full-stack web application designed to allow users to post and review spots around the city of Toronto. This project is the spiritual successor my previous project, <strong>Hang</strong>, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI.</p>
@@ -55,5 +50,3 @@
     </ul>
 
     <p>This tech stack ensures that Spot Map App is both scalable and maintainable, providing a robust platform for users to explore and share their favorite spots in the city.</p>
-</body>
-</html>
