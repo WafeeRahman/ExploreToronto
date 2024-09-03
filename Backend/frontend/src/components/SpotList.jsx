@@ -36,7 +36,7 @@ const SpotList = () => {
     useEffect(() => {
         const fetchSpots = async () => {
             try {
-                const response = await axios.get(`${api}/spotgrounds/`, {withCredentials: true});
+                const response = await axios.get(`${api}/spotgrounds/`, { withCredentials: true });
                 setSpots(response.data);
                 setIsLoaded(true);
             } catch (error) {
@@ -229,7 +229,7 @@ const SpotList = () => {
                     variant="contained"
                     onClick={() => navigate('/posts/new')}
                 >
-                    Create Spot
+                    Create Post
                 </Button>
             </motion.div>
 
