@@ -179,7 +179,6 @@ const SpotList = () => {
                     });
                 }, 2000); // Adjust timeout duration if needed
 
-                return () => map.remove(); // Cleanup map on component unmount
             }
         }
     }, [isLoaded, spots, navigate]);
