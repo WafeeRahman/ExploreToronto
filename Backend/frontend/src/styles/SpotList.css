@@ -1,17 +1,22 @@
 @import 'mapbox-gl/dist/mapbox-gl.css';
 
+/* Map Container */
 .map-wrapper {
     width: 80%;
-    height: 500px;
-    margin: auto;
-    margin-bottom: 5px;
+    height: 500px; /* Ensure this height is what you need */
+    margin: 5vh auto 5px; /* Adjust as needed */
     border-radius: 10px;
     overflow: hidden;
-    padding: 5rem;
     background-color: #FEFCFB;
-    margin-top: 5vh;
     position: relative; /* Ensure positioning is relative for child elements */
 }
+
+/* Map Element */
+#map {
+    width: 100%;
+    height: 100%; /* Ensure the map fills its container */
+}
+
 /* Container for the Create Button */
 .create-button-container {
     display: flex;
@@ -39,6 +44,7 @@
     max-width: 600px;
 }
 
+/* Button Hover Effects */
 .create-button::before {
     content: "";
     position: absolute;
@@ -98,12 +104,11 @@
     width: 100%;
     max-width: 90%; /* Base value for smaller screens */
     transition: transform 0.5s ease, box-shadow 0.3s ease;
-    margin: 20px auto; /* Center horizontally and add margin */
-    margin-bottom: 60px;
+    margin: 30px auto; /* Center horizontally and add larger margin */
     padding: 15px; /* Add some padding for better spacing */
     box-sizing: border-box; /* Ensure padding doesn't affect the overall width */
     overflow: hidden; /* Prevent content from overflowing */
-    border-bottom: 100px;
+    border-radius: 10px; /* Add border-radius for better card appearance */
 }
 
 /* Ensure thumbnails are contained within the card */
@@ -112,13 +117,14 @@
     width: 100%;
     height: auto; /* Maintain aspect ratio */
     max-height: 300px; /* Set a maximum height for thumbnails */
+    border-radius: 10px; /* Match card border-radius */
 }
 
-
+/* View Button Container */
 .view-button-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px; /* Increase margin-top for better spacing */
 }
 
 @media (min-width: 600px) {
@@ -154,14 +160,4 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.5s ease, box-shadow 0.3s ease;
-}
-
-
-/* SpotList.css */
-
-
-/* Change cursor to pointer when hovering over clusters or unclustered points */
-
-.mapboxgl-canvas.mapboxgl-interactive .unclustered-point #unclustered-point {
-    cursor: pointer;
 }
