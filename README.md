@@ -1,14 +1,14 @@
 # Explore Toronto
 
-Explore Toronto is a full-stack web application designed to allow users to post and review spots around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI. This site can be visited at https://exploretoronto-1.onrender.com/
+Explore Toronto is a full-stack web application designed to allow users to post and review Posts around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI. This site can be visited at https://exploretoronto-1.onrender.com/
 
 ## Features
 
-- **Spot Management**: Users can create, view, and manage spots on an interactive map of Toronto.
+- **Post Management**: Users can create, view, and manage Posts on an interactive map of Toronto.
 - **User Authentication**: Secure user authentication and session management using PassportJS and express-session cookies.
 - **Interactive Mapping**: Integration with Mapbox GL for a responsive and dynamic map interface.
 - **Image Upload**: Users can upload images to enhance their posts, with Cloudinary handling the image storage and processing.
-- **Data Management**: CRUD (Create, Read, Update, Delete) operations are fully implemented, allowing users to interact with spots and reviews seamlessly.
+- **Data Management**: CRUD (Create, Read, Update, Delete) operations are fully implemented, allowing users to interact with Posts and reviews seamlessly.
 
 ## Tech Stack
 
@@ -25,7 +25,7 @@ Explore Toronto is a full-stack web application designed to allow users to post 
 - **React**: The entire frontend is built using React, allowing for a dynamic and responsive user experience.
 - **Material UI**: Provides a modern and consistent design, replacing the older Bootstrap framework from the previous version of the application.
 - **Vite**: Used as the build tool for the frontend, ensuring faster and optimized development with hot-reload capabilities.
-- **Mapbox GL**: Powers the interactive map feature, allowing users to explore and post spots directly on a map interface.
+- **Mapbox GL**: Powers the interactive map feature, allowing users to explore and post Posts directly on a map interface.
 
 ### Additional Technologies
 
@@ -40,6 +40,6 @@ The application is structured with a clear separation of concerns:
 - **Express.js** handles the server-side routing, API logic, and user authentication.
 - **React** manages the client-side interface, communicating with the backend via RESTful APIs.
 - **MongoDB** serves as the central data store, with Mongoose providing a schema-based solution to model the application data.
-- **Mapbox GL** offers a rich, interactive map experience, tightly integrated into the frontend for seamless spot management.
+- **Mapbox GL** offers a rich, interactive map experience, tightly integrated into the frontend for seamless Post management.
 
-This tech stack ensures that Spot Map App is both scalable and maintainable, providing a robust platform for users to explore and share their favorite spots in the city.
+This tech stack ensures that Post Map App is both scalable and maintainable, providing a robust platform for users to explore and share their favorite Posts in the city.
