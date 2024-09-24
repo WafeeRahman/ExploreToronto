@@ -1,6 +1,7 @@
 # Explore Toronto
 
 Explore Toronto is a full-stack web application designed to allow users to post and review Posts around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI. This site can be visited at https://exploretoronto-1.onrender.com/
+Note: This repository contains commits regarding revamping the frontend from bootstrap to react, to find all original commits, please visit the original repository at: https://github.com/WafeeRahman/Hang-
 
 ## Features
 
@@ -12,7 +13,7 @@ Explore Toronto is a full-stack web application designed to allow users to post 
 
 ## Tech Stack
 
-### Backend
+### Refactored Backend
 
 - **Node.js & Express**: The server-side logic is handled by Express.js, which provides robust API routing, data validation, and error handling.
 - **MongoDB**: Data storage is managed using MongoDB, with Mongoose as the ORM to interact with the database. Express-mongo-sanitize is used to prevent NoSQL injection attacks.
@@ -20,7 +21,7 @@ Explore Toronto is a full-stack web application designed to allow users to post 
 - **Express-session**: Manages user sessions with secure cookies, ensuring a smooth and persistent user experience.
 - **Helmet**: Adds security headers to the application, enhancing protection against common web vulnerabilities.
 
-### Frontend
+### Revamped Frontend
 
 - **React**: The entire frontend is built using React, allowing for a dynamic and responsive user experience.
 - **Material UI**: Provides a modern and consistent design, replacing the older Bootstrap framework from the previous version of the application.
@@ -43,3 +44,5 @@ The application is structured with a clear separation of concerns:
 - **Mapbox GL** offers a rich, interactive map experience, tightly integrated into the frontend for seamless Post management.
 
 This tech stack ensures that Post Map App is both scalable and maintainable, providing a robust platform for users to explore and share their favorite Posts in the city.
+
+
