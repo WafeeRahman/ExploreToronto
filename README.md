@@ -3,9 +3,9 @@
 Explore Toronto is a full-stack web application designed to allow users to post and review Posts around the city of Toronto. This project is the spiritual successor my previous project **Hang**, featuring a complete overhaul of the frontend from Bootstrap and EJS to a more modern and dynamic stack using React and Material UI. This site can be visited at https://exploretoronto-1.onrender.com/
 Note: This repository contains commits regarding revamping the frontend from bootstrap to react, to find all original commits, please visit the original repository at: https://github.com/WafeeRahman/Hang-
 
-##Demo 
+## Demo 
 
-![](https://imgur.com/a/iKdsC6Y)
+![Demo GIF](https://imgur.com/a/explore-toronto-demo-iKdsC6Y)
 
 
 ## Features
