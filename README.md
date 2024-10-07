@@ -5,7 +5,7 @@ Note: This repository contains commits regarding revamping the frontend from boo
 
 ##Demo 
 
-![Demo GIF](https://imgur.com/a/iKdsC6Y)
+![](https://imgur.com/a/iKdsC6Y)
 
 
 ## Features
