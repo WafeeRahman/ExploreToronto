@@ -4,8 +4,8 @@ Explore Toronto is a full-stack web application designed to allow users to post 
 Note: This repository contains commits regarding revamping the frontend from bootstrap to react, to find all original commits, please visit the original repository at: https://github.com/WafeeRahman/Hang-
 
 ## Demo 
+![ExploreTorontoDemo](https://github.com/user-attachments/assets/bacc3417-eab4-4afa-967a-764b8b4082e7)
 
-![Demo GIF](https://imgur.com/a/explore-toronto-demo-iKdsC6Y)
 
 
 ## Features
